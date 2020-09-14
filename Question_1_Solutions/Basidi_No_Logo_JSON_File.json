@@ -1,0 +1,777 @@
+﻿{
+  "h:html": {
+    "xmlns": "http://www.w3.org/2002/xforms",
+    "xmlns:ev": "http://www.w3.org/2001/xml-events",
+    "xmlns:h": "http://www.w3.org/1999/xhtml",
+    "xmlns:jr": "http://openrosa.org/javarosa",
+    "xmlns:odk": "http://www.opendatakit.org/xforms",
+    "xmlns:orx": "http://openrosa.org/xforms",
+    "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+    "h:head": {
+      "h:title": "Basidi_XLSForm_No_Logo",
+      "model": {
+        "odk:xforms-version": "1.0.0",
+        "instance": {
+          "data": {
+            "id": "Basidi_XLSForm_No_Logo",
+            "start": "",
+            "beginning": {"title": ""},
+            "intro": {
+              "interviewer_name": "",
+              "cascade_note_a": "",
+              "respondent_county": ""
+            },
+            "hh_demographics": {
+              "hh_ownership": "",
+              "hh_ownership_other": "",
+              "hh_head_gender": "",
+              "hh_females": "",
+              "hh_males": "",
+              "children": "",
+              "hh_size": "",
+              "hh_occupants": "",
+              "total_hh_size": ""
+            },
+            "hh_economics": {
+              "television": "",
+              "radio": "",
+              "cellphone": ""
+            },
+            "hh_education": {
+              "education_level_head": "",
+              "education_level_others_details": [
+                {
+                  "jr:template": "",
+                  "relationship_to_head": "",
+                  "education_level_other": ""
+                },
+                {
+                  "relationship_to_head": "",
+                  "education_level_other": ""
+                }
+              ]
+            },
+            "hh_environment": {
+              "electricity": "",
+              "latrine": "",
+              "latrine_shared": ""
+            },
+            "household_details": [
+              {
+                "jr:template": "",
+                "age": "",
+                "hh_member_gender": ""
+              },
+              {
+                "age": "",
+                "hh_member_gender": ""
+              }
+            ],
+            "end": "",
+            "meta": {"instanceID": ""}
+          }
+        },
+        "bind": [
+          {
+            "jr:preload": "timestamp",
+            "jr:preloadParams": "start",
+            "nodeset": "/data/start",
+            "type": "dateTime"
+          },
+          {
+            "nodeset": "/data/beginning/title",
+            "readonly": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/intro/interviewer_name",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/intro/cascade_note_a",
+            "readonly": "true()",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/intro/respondent_county",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_ownership",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_ownership_other",
+            "relevant": " /data/hh_demographics/hh_ownership  = 'other'",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_head_gender",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_females",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_males",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/hh_demographics/children",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "calculate": " /data/hh_demographics/hh_males  +  /data/hh_demographics/hh_females ",
+            "nodeset": "/data/hh_demographics/hh_size",
+            "type": "string"
+          },
+          {
+            "constraint": " /data/hh_demographics/hh_size  =  /data/hh_demographics/hh_occupants ",
+            "jr:constraintMsg": "Number of males and females should equal household size!",
+            "nodeset": "/data/hh_demographics/hh_occupants",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/hh_demographics/total_hh_size",
+            "readonly": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_economics/television",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_economics/radio",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_economics/cellphone",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_education/education_level_head",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_education/education_level_others_details",
+            "required": "true()"
+          },
+          {
+            "nodeset": "/data/hh_education/education_level_others_details/relationship_to_head",
+            "required": "false()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_education/education_level_others_details/education_level_other",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_environment/electricity",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_environment/latrine",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_environment/latrine_shared",
+            "relevant": " /data/hh_environment/latrine  = 'yes'",
+            "type": "string"
+          },
+          {
+            "constraint": "(.<18) and (.>0)",
+            "jr:constraintMsg": "Child should be less than 18 years of age!",
+            "nodeset": "/data/household_details/age",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/household_details/hh_member_gender",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "jr:preload": "timestamp",
+            "jr:preloadParams": "end",
+            "nodeset": "/data/end",
+            "type": "dateTime"
+          },
+          {
+            "jr:preload": "uid",
+            "nodeset": "/data/meta/instanceID",
+            "readonly": "true()",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "h:body": {
+      "group": [
+        {
+          "ref": "/data/beginning",
+          "label": "BASIDI Org. SURVEY DATA",
+          "input": {
+            "ref": "/data/beginning/title",
+            "label": "Household Survey"
+          }
+        },
+        {
+          "ref": "/data/intro",
+          "label": "This form shows household information to be collected for use by Basidi Non-Profit Organisation",
+          "select1": [
+            {
+              "appearance": "minimal",
+              "ref": "/data/intro/interviewer_name",
+              "label": "Name of Interviewer",
+              "hint": "Select name",
+              "item": [
+                {
+                  "label": "Tom",
+                  "value": "a"
+                },
+                {
+                  "label": "Jerry",
+                  "value": "b"
+                },
+                {
+                  "label": "Mickey",
+                  "value": "c"
+                },
+                {
+                  "label": "Scooby",
+                  "value": "d"
+                },
+                {
+                  "label": "Spongebob",
+                  "value": "e"
+                },
+                {
+                  "label": "Batman",
+                  "value": "f"
+                },
+                {
+                  "label": "Alvin",
+                  "value": "g"
+                },
+                {
+                  "label": "Elsa",
+                  "value": "h"
+                }
+              ]
+            },
+            {
+              "appearance": "minimal",
+              "ref": "/data/intro/respondent_county",
+              "label": "Please select your county",
+              "hint": "Select current county of residence",
+              "item": [
+                {
+                  "label": "Mombasa",
+                  "value": "Mombasa"
+                },
+                {
+                  "label": "Kwale",
+                  "value": "Kwale"
+                },
+                {
+                  "label": "Kilifi",
+                  "value": "Kilifi"
+                },
+                {
+                  "label": "Tana River",
+                  "value": "Tana_River"
+                },
+                {
+                  "label": "Lamu",
+                  "value": "Lamu"
+                },
+                {
+                  "label": "Taita-Taveta",
+                  "value": "Taita_Taveta"
+                },
+                {
+                  "label": "Garissa",
+                  "value": "Garissa"
+                },
+                {
+                  "label": "wajir",
+                  "value": "wajir"
+                },
+                {
+                  "label": "Mandera",
+                  "value": "Mandera"
+                },
+                {
+                  "label": "Marsabit",
+                  "value": "Marsabit"
+                },
+                {
+                  "label": "Isiolo",
+                  "value": "Isiolo"
+                },
+                {
+                  "label": "Meru",
+                  "value": "Meru"
+                },
+                {
+                  "label": "Tharaka-Nithi",
+                  "value": "Tharaka_Nithi"
+                },
+                {
+                  "label": "Embu",
+                  "value": "Embu"
+                },
+                {
+                  "label": "Kitui",
+                  "value": "Kitui"
+                },
+                {
+                  "label": "Machakos",
+                  "value": "Machakos"
+                },
+                {
+                  "label": "Makueni",
+                  "value": "Makueni"
+                },
+                {
+                  "label": "Nyandarua",
+                  "value": "Nyandarua"
+                },
+                {
+                  "label": "Nyeri",
+                  "value": "Nyeri"
+                },
+                {
+                  "label": "Kirinyaga",
+                  "value": "Kirinyaga"
+                },
+                {
+                  "label": "Murang'a",
+                  "value": "Murang'a"
+                },
+                {
+                  "label": "Kiambu",
+                  "value": "Kiambu"
+                },
+                {
+                  "label": "Turkana",
+                  "value": "Turkana"
+                },
+                {
+                  "label": "West Pokot",
+                  "value": "West_Pokot"
+                },
+                {
+                  "label": "Samburu",
+                  "value": "Samburu"
+                },
+                {
+                  "label": "Trans Nzoia",
+                  "value": "Trans_Nzoia"
+                },
+                {
+                  "label": "Uasin Gishu",
+                  "value": "Uasin_Gishu"
+                },
+                {
+                  "label": "Elgeyo-Marakwet",
+                  "value": "Elgeyo_Marakwet"
+                },
+                {
+                  "label": "Nandi",
+                  "value": "Nandi"
+                },
+                {
+                  "label": "Baringo",
+                  "value": "Baringo"
+                },
+                {
+                  "label": "Laikipia",
+                  "value": "Laikipia"
+                },
+                {
+                  "label": "Nakuru",
+                  "value": "Nakuru"
+                },
+                {
+                  "label": "Narok",
+                  "value": "Narok"
+                },
+                {
+                  "label": "Kajiado",
+                  "value": "Kajiado"
+                },
+                {
+                  "label": "Kericho",
+                  "value": "Kericho"
+                },
+                {
+                  "label": "Bomet",
+                  "value": "Bomet"
+                },
+                {
+                  "label": "Kakamega",
+                  "value": "Kakamega"
+                },
+                {
+                  "label": "Vihiga",
+                  "value": "Vihiga"
+                },
+                {
+                  "label": "Bungoma",
+                  "value": "Bungoma"
+                },
+                {
+                  "label": "Busia",
+                  "value": "Busia"
+                },
+                {
+                  "label": "Siaya",
+                  "value": "Siaya"
+                },
+                {
+                  "label": "Kisumu",
+                  "value": "Kisumu"
+                },
+                {
+                  "label": "Homa Bay",
+                  "value": "Homa_Bay"
+                },
+                {
+                  "label": "Migori",
+                  "value": "Migori"
+                },
+                {
+                  "label": "Kisii",
+                  "value": "Kisii"
+                },
+                {
+                  "label": "Nyamira",
+                  "value": "Nyamira"
+                },
+                {
+                  "label": "Nairobi City",
+                  "value": "Nairobi_City"
+                }
+              ]
+            }
+          ],
+          "input": {
+            "ref": "/data/intro/cascade_note_a",
+            "label": "Please enter your location of residence"
+          }
+        },
+        {
+          "ref": "/data/hh_demographics",
+          "label": "Household Demographics",
+          "select1": [
+            {
+              "appearance": "minimal",
+              "ref": "/data/hh_demographics/hh_ownership",
+              "label": "This house is",
+              "hint": "One answer allowed [Optional]. If answer is \"Other\" new question will appear. [Skip Logic]",
+              "item": [
+                {
+                  "label": "Owned",
+                  "value": "own"
+                },
+                {
+                  "label": "Rented/Leased",
+                  "value": "rent"
+                },
+                {
+                  "label": "Rent-Free",
+                  "value": "rent_free"
+                },
+                {
+                  "label": "Informal Settlement",
+                  "value": "informal"
+                },
+                {
+                  "label": "Other",
+                  "value": "other"
+                }
+              ]
+            },
+            {
+              "ref": "/data/hh_demographics/hh_head_gender",
+              "label": "Sex",
+              "hint": "Male or female",
+              "item": [
+                {
+                  "label": "Male",
+                  "value": "male"
+                },
+                {
+                  "label": "Female",
+                  "value": "female"
+                }
+              ]
+            }
+          ],
+          "input": [
+            {
+              "ref": "/data/hh_demographics/hh_ownership_other",
+              "label": "Please specify other"
+            },
+            {
+              "ref": "/data/hh_demographics/hh_females",
+              "label": "Number of females in household",
+              "hint": "Answer must be a whole number"
+            },
+            {
+              "ref": "/data/hh_demographics/hh_males",
+              "label": "Number of males in household",
+              "hint": "Answer must be a whole number"
+            },
+            {
+              "ref": "/data/hh_demographics/children",
+              "label": "How many children(under 10 years)?",
+              "hint": "Answer must be a whole number"
+            },
+            {
+              "ref": "/data/hh_demographics/hh_occupants",
+              "label": "Number of people in household",
+              "hint": "Answer must be a whole number"
+            },
+            {
+              "ref": "/data/hh_demographics/total_hh_size",
+              "label": {
+                "#text": "Your household has",
+                "output": {"value": " /data/hh_demographics/hh_size "},
+                "#text1": "occupants."
+              }
+            }
+          ]
+        },
+        {
+          "ref": "/data/hh_economics",
+          "label": "Household Economics",
+          "select1": [
+            {
+              "ref": "/data/hh_economics/television",
+              "label": "Does the household have a television?",
+              "item": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            },
+            {
+              "ref": "/data/hh_economics/radio",
+              "label": "Does the household have a radio?",
+              "item": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            },
+            {
+              "ref": "/data/hh_economics/cellphone",
+              "label": "Does the household have a cell-phone?",
+              "item": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ref": "/data/hh_education",
+          "label": "Household Education",
+          "select1": {
+            "appearance": "minimal",
+            "ref": "/data/hh_education/education_level_head",
+            "label": "What is the highest level of education of the head of household?",
+            "hint": "Select highest level attained",
+            "item": [
+              {
+                "label": "None",
+                "value": "none"
+              },
+              {
+                "label": "Primary education",
+                "value": "primary"
+              },
+              {
+                "label": "Secondary education",
+                "value": "secondary"
+              },
+              {
+                "label": "Diploma education",
+                "value": "diploma"
+              },
+              {
+                "label": "Undergraduate degree",
+                "value": "undergrad"
+              },
+              {
+                "label": "Masters degree",
+                "value": "postgrad"
+              },
+              {
+                "label": "PHD",
+                "value": "advanced_postgrad"
+              }
+            ]
+          },
+          "group": {
+            "ref": "/data/hh_education/education_level_others_details",
+            "label": "Fill out the level of education of the rest of household?",
+            "repeat": {
+              "nodeset": "/data/hh_education/education_level_others_details",
+              "input": {
+                "ref": "/data/hh_education/education_level_others_details/relationship_to_head",
+                "label": "What is the relationship of household member to head of the household?",
+                "hint": "[Optional]"
+              },
+              "select1": {
+                "appearance": "minimal",
+                "ref": "/data/hh_education/education_level_others_details/education_level_other",
+                "label": "What is the level of education of the household member?",
+                "hint": "Select highest level attained",
+                "item": [
+                  {
+                    "label": "None",
+                    "value": "none"
+                  },
+                  {
+                    "label": "Primary education",
+                    "value": "primary"
+                  },
+                  {
+                    "label": "Secondary education",
+                    "value": "secondary"
+                  },
+                  {
+                    "label": "Diploma education",
+                    "value": "diploma"
+                  },
+                  {
+                    "label": "Undergraduate degree",
+                    "value": "undergrad"
+                  },
+                  {
+                    "label": "Masters degree",
+                    "value": "postgrad"
+                  },
+                  {
+                    "label": "PHD",
+                    "value": "advanced_postgrad"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "ref": "/data/hh_environment",
+          "label": "Household Environment",
+          "select1": [
+            {
+              "ref": "/data/hh_environment/electricity",
+              "label": "Does the household have electricity?",
+              "item": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            },
+            {
+              "ref": "/data/hh_environment/latrine",
+              "label": "Does the household have a latrine or toilet?",
+              "hint": "If answer is \"Yes\" please answer the following question.",
+              "item": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            },
+            {
+              "ref": "/data/hh_environment/latrine_shared",
+              "label": "Is the above facility shared?",
+              "item": [
+                {
+                  "label": "Yes",
+                  "value": "yes"
+                },
+                {
+                  "label": "No",
+                  "value": "no"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ref": "/data/household_details",
+          "label": "Please fill out this series of questions for each child in the household",
+          "repeat": {
+            "nodeset": "/data/household_details",
+            "input": {
+              "ref": "/data/household_details/age",
+              "label": "Age",
+              "hint": "Answer must be a whole number"
+            },
+            "select1": {
+              "ref": "/data/household_details/hh_member_gender",
+              "label": "Sex",
+              "item": [
+                {
+                  "label": "Male",
+                  "value": "male"
+                },
+                {
+                  "label": "Female",
+                  "value": "female"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
