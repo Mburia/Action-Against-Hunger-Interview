@@ -14,4 +14,5 @@ c)	Submit your form in JSON format (10 Marks)
 2.	You are in charge or data collection for your team. You are tasked with collecting household information on child ages, height and weight. If there are no children, then we need parent age and education levels based on the provided criteria. Write a dynamic form that is able to capture an unknown number of children capturing the required fields.
 a)	Submit your form in XFORM XLS format (10 Marks)
 
-The files containing the results have been uploaded to this repository under the folder 'Solution'
+The files containing the results have been uploaded to this repository under the folder 'Question_1_Solutions' for question 1 and 'Question_2_Solution' for question 2.
+
