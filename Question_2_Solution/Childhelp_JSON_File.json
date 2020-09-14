@@ -1,0 +1,394 @@
+﻿{
+  "h:html": {
+    "xmlns": "http://www.w3.org/2002/xforms",
+    "xmlns:ev": "http://www.w3.org/2001/xml-events",
+    "xmlns:h": "http://www.w3.org/1999/xhtml",
+    "xmlns:jr": "http://openrosa.org/javarosa",
+    "xmlns:odk": "http://www.opendatakit.org/xforms",
+    "xmlns:orx": "http://openrosa.org/xforms",
+    "xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
+    "h:head": {
+      "h:title": "Childhelp_XLSForm",
+      "model": {
+        "odk:xforms-version": "1.0.0",
+        "instance": {
+          "data": {
+            "id": "Childhelp_XLSForm",
+            "start": "",
+            "title": {"intro": ""},
+            "hh_demographics": {
+              "hh_males": "",
+              "hh_females": "",
+              "hh_size": "",
+              "hh_occupants": "",
+              "children": "",
+              "total_hh_size": ""
+            },
+            "child_data": {
+              "child_no": "",
+              "child_repeat": [
+                {
+                  "jr:template": "",
+                  "hh_child_age": "",
+                  "hh_child_gender": "",
+                  "hh_child_weight": "",
+                  "hh_child_height": ""
+                },
+                {
+                  "hh_child_age": "",
+                  "hh_child_gender": "",
+                  "hh_child_weight": "",
+                  "hh_child_height": ""
+                }
+              ]
+            },
+            "adult_data": {
+              "adult_repeat": [
+                {
+                  "jr:template": "",
+                  "relationship_to_hh_head": "",
+                  "adult_age": "",
+                  "education_adult": "",
+                  "adult_income_source": "",
+                  "other_income": ""
+                },
+                {
+                  "relationship_to_hh_head": "",
+                  "adult_age": "",
+                  "education_adult": "",
+                  "adult_income_source": "",
+                  "other_income": ""
+                }
+              ]
+            },
+            "end": "",
+            "meta": {"instanceID": ""}
+          }
+        },
+        "bind": [
+          {
+            "jr:preload": "timestamp",
+            "jr:preloadParams": "start",
+            "nodeset": "/data/start",
+            "type": "dateTime"
+          },
+          {
+            "nodeset": "/data/title/intro",
+            "readonly": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_males",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/hh_demographics/hh_females",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "calculate": " /data/hh_demographics/hh_males  +  /data/hh_demographics/hh_females ",
+            "nodeset": "/data/hh_demographics/hh_size",
+            "type": "string"
+          },
+          {
+            "constraint": " /data/hh_demographics/hh_size  =  /data/hh_demographics/hh_occupants ",
+            "jr:constraintMsg": "Number of males and females should equal household size!",
+            "nodeset": "/data/hh_demographics/hh_occupants",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/hh_demographics/children",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/hh_demographics/total_hh_size",
+            "readonly": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/child_data/child_no",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/child_data/child_repeat",
+            "relevant": " /data/child_data/child_no  >0",
+            "required": "true()"
+          },
+          {
+            "constraint": "(.<18) and (.>0)",
+            "jr:constraintMsg": "Age of child must be between 0 and 18!",
+            "nodeset": "/data/child_data/child_repeat/hh_child_age",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/child_data/child_repeat/hh_child_gender",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "constraint": ".>0",
+            "jr:constraintMsg": "Weight cannot be zero!",
+            "nodeset": "/data/child_data/child_repeat/hh_child_weight",
+            "required": "true()",
+            "type": "decimal"
+          },
+          {
+            "constraint": ".>0",
+            "jr:constraintMsg": "Height cannot be zero!",
+            "nodeset": "/data/child_data/child_repeat/hh_child_height",
+            "required": "true()",
+            "type": "decimal"
+          },
+          {
+            "nodeset": "/data/adult_data",
+            "relevant": " /data/child_data/child_no  ='0'",
+            "required": "true()"
+          },
+          {
+            "nodeset": "/data/adult_data/adult_repeat",
+            "required": "true()"
+          },
+          {
+            "nodeset": "/data/adult_data/adult_repeat/relationship_to_hh_head",
+            "required": "false()",
+            "type": "string"
+          },
+          {
+            "constraint": "(.>=18) and (.<150)",
+            "jr:constraintMsg": "Age of adult must be 18 or above!",
+            "nodeset": "/data/adult_data/adult_repeat/adult_age",
+            "required": "true()",
+            "type": "int"
+          },
+          {
+            "nodeset": "/data/adult_data/adult_repeat/education_adult",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/adult_data/adult_repeat/adult_income_source",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "nodeset": "/data/adult_data/adult_repeat/other_income",
+            "relevant": " ../adult_income_source ='other'",
+            "required": "true()",
+            "type": "string"
+          },
+          {
+            "jr:preload": "timestamp",
+            "jr:preloadParams": "end",
+            "nodeset": "/data/end",
+            "type": "dateTime"
+          },
+          {
+            "jr:preload": "uid",
+            "nodeset": "/data/meta/instanceID",
+            "readonly": "true()",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "h:body": {
+      "group": [
+        {
+          "ref": "/data/title",
+          "label": "CHILD-HELP NON-PROFIT ORGANISATION",
+          "input": {
+            "ref": "/data/title/intro",
+            "label": "This form showcases data to be collected for Childhelp Non Profit Organisation"
+          }
+        },
+        {
+          "ref": "/data/hh_demographics",
+          "label": "Household Demographics",
+          "input": [
+            {
+              "ref": "/data/hh_demographics/hh_males",
+              "label": "Number of males in household",
+              "hint": "Answer must be a number"
+            },
+            {
+              "ref": "/data/hh_demographics/hh_females",
+              "label": "Number of females in household",
+              "hint": "Answer must be a number"
+            },
+            {
+              "ref": "/data/hh_demographics/hh_occupants",
+              "label": "Number of people in household",
+              "hint": "Answer must be a number"
+            },
+            {
+              "ref": "/data/hh_demographics/children",
+              "label": "How many children(under 10 years)?",
+              "hint": "Answer must be a number"
+            },
+            {
+              "ref": "/data/hh_demographics/total_hh_size",
+              "label": {
+                "#text": "Your household has",
+                "output": {"value": " /data/hh_demographics/hh_size "},
+                "#text1": "occupants."
+              }
+            }
+          ]
+        },
+        {
+          "ref": "/data/child_data",
+          "label": "Child Data",
+          "input": {
+            "ref": "/data/child_data/child_no",
+            "label": "How many children do you have?",
+            "hint": "If none please write 0."
+          },
+          "group": {
+            "ref": "/data/child_data/child_repeat",
+            "label": "Please fill out this series of questions for each child in the household",
+            "repeat": {
+              "nodeset": "/data/child_data/child_repeat",
+              "input": [
+                {
+                  "ref": "/data/child_data/child_repeat/hh_child_age",
+                  "label": "Age",
+                  "hint": "Age in years"
+                },
+                {
+                  "ref": "/data/child_data/child_repeat/hh_child_weight",
+                  "label": "Weight(Kilograms)",
+                  "hint": "(E.g 20.0, 20.5)"
+                },
+                {
+                  "ref": "/data/child_data/child_repeat/hh_child_height",
+                  "label": "Height(Centimetres)",
+                  "hint": "(E.g 175.0, 175.5)"
+                }
+              ],
+              "select1": {
+                "ref": "/data/child_data/child_repeat/hh_child_gender",
+                "label": "Sex",
+                "hint": "Male or Female",
+                "item": [
+                  {
+                    "label": "Male",
+                    "value": "male"
+                  },
+                  {
+                    "label": "Female",
+                    "value": "female"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        {
+          "ref": "/data/adult_data",
+          "label": "Adult Data",
+          "group": {
+            "ref": "/data/adult_data/adult_repeat",
+            "label": "Please fill out the following details for adults in the household.",
+            "repeat": {
+              "nodeset": "/data/adult_data/adult_repeat",
+              "input": [
+                {
+                  "ref": "/data/adult_data/adult_repeat/relationship_to_hh_head",
+                  "label": "Please indicate the relationship of this member to the household head.",
+                  "hint": "[Optional]"
+                },
+                {
+                  "ref": "/data/adult_data/adult_repeat/adult_age",
+                  "label": "Age",
+                  "hint": "Age in years."
+                },
+                {
+                  "ref": "/data/adult_data/adult_repeat/other_income",
+                  "label": "Please specify Other source of income"
+                }
+              ],
+              "select1": {
+                "appearance": "minimal",
+                "ref": "/data/adult_data/adult_repeat/education_adult",
+                "label": "Please indicate highest level of education of this member.",
+                "hint": "Select one",
+                "item": [
+                  {
+                    "label": "None",
+                    "value": "none"
+                  },
+                  {
+                    "label": "Primary education",
+                    "value": "primary"
+                  },
+                  {
+                    "label": "Secondary education",
+                    "value": "secondary"
+                  },
+                  {
+                    "label": "Diploma education",
+                    "value": "diploma"
+                  },
+                  {
+                    "label": "Undergraduate degree",
+                    "value": "undergrad"
+                  },
+                  {
+                    "label": "Masters degree",
+                    "value": "postgrad"
+                  },
+                  {
+                    "label": "PHD",
+                    "value": "advanced_postgrad"
+                  }
+                ]
+              },
+              "select": {
+                "appearance": "minimal",
+                "ref": "/data/adult_data/adult_repeat/adult_income_source",
+                "label": "Select one or more income sources",
+                "hint": "If 'Other' please specify below.",
+                "item": [
+                  {
+                    "label": "Employed",
+                    "value": "employed"
+                  },
+                  {
+                    "label": "Self-Employed",
+                    "value": "self_employed"
+                  },
+                  {
+                    "label": "Farming",
+                    "value": "farming"
+                  },
+                  {
+                    "label": "Business",
+                    "value": "business"
+                  },
+                  {
+                    "label": "Pastrolism",
+                    "value": "pastrolism"
+                  },
+                  {
+                    "label": "Other",
+                    "value": "other"
+                  },
+                  {
+                    "label": "None",
+                    "value": "none"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
