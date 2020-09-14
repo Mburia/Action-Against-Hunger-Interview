@@ -1,8 +1,8 @@
 # Action-Against-Hunger-Interview
 Action Against Hunger is a global humanitarian and development organization that takes decisive action against the causes and effects of hunger. 
-This repo contains files recquired in the interview for a Data Analyst Intern at Action Against Hunger.
+This repository contains files recquired in the interview for the role of 'Data Analyst Intern' at Action Against Hunger as well as the deliverables.
 
-The Questions being solved are:
+The Questions being solved are 2:
 1.	You have been tasked with collecting information from a specific geographical location. Using the provided template, proceed to design a form complete with logo branding to perform data collection while collecting location, form fill start time and end times meta-data. (location point collection needed)
 (All submissions should be made on GitHub and provide a link to shared project files) 
 (1 Hour)
